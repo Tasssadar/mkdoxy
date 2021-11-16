@@ -1,17 +1,16 @@
 import argparse
 import sys
 import os
-from doxygen_snippets.doxygen import Doxygen
-from doxygen_snippets.generatorBase import GeneratorBase
-from doxygen_snippets.generatorAuto import GeneratorAuto
-from doxygen_snippets.generatorSnippets import GeneratorSnippets
-from doxygen_snippets.xml_parser import XmlParser
-from doxygen_snippets.cache import Cache
-from doxygen_snippets.constants import Kind
-from doxygen_snippets.runner import run
-from doxygen_snippets.node import Node
-from doxygen_snippets.finder import Finder
-from doxygen_snippets.doxyrun import DoxygenRun
+from mkdoxy.doxygen import Doxygen
+from mkdoxy.generatorBase import GeneratorBase
+from mkdoxy.generatorAuto import GeneratorAuto
+from mkdoxy.generatorSnippets import GeneratorSnippets
+from mkdoxy.xml_parser import XmlParser
+from mkdoxy.cache import Cache
+from mkdoxy.constants import Kind
+from mkdoxy.node import Node
+from mkdoxy.finder import Finder
+from mkdoxy.doxyrun import DoxygenRun
 from pprint import *
 
 if __name__ == "__main__":
@@ -32,7 +31,7 @@ if __name__ == "__main__":
 	debugFull = False
 	fullDoc = True
 
-	doxygenRun = DoxygenRun(doxygenSource, siteDir)
+	doxygenRun = DoxygenRun(doxygenSource, siteDir, {})
 	doxygenRun.run()
 
 	options = {
@@ -41,8 +40,8 @@ if __name__ == "__main__":
 	}
 
 	cache = Cache()
-	parser = XmlParser(cache=cache, target=target, hints=hints, debug=debug)
-	doxygen = Doxygen(doxygenRun.getDestination(), parser, cache, options=options, debug=debug)
+	parser = XmlParser(cache=cache, debug=debug)
+	doxygen = Doxygen(siteDir, parser, cache, options=options, debug=debug)
 
 	if debugFull:
 		doxygen.print()
