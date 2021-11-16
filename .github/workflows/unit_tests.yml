@@ -1,6 +1,5 @@
 ---
 name: 'Unit test'
-description: 'Do unit tests'
 on: [push]
 jobs:
   Unit-tests:
